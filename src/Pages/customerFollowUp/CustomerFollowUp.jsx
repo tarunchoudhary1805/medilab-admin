@@ -8,6 +8,7 @@ import CreateService from "../../Components/createService";
 import EditCustomerFollowUp from "../../Components/EditCustomerFollowUp";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router";
+import moment from "moment";
 
 const CustomerFollowUp = () => {
   const state = useSelector((state) => state.LoginReducer);
@@ -150,9 +151,15 @@ const CustomerFollowUp = () => {
         )}
 
         <div className="my-3 cardd">
-          {!data?.length > 0 && (
+          {!data?.length > 0 && loading===false  ?(
             <h5 className="text-center">No Customer Follow Up Available</h5>
-          )}
+          ) : 
+          loading===true ?(
+            <h5 className="text-center">Loading .......</h5>
+          )
+          :
+          <></>
+          }
           {data?.map((item, i) => (
             <>
               <div className="card my-5 p-2">
@@ -163,7 +170,7 @@ const CustomerFollowUp = () => {
                       <div>
                         {" "}
                         <img src={logo} className="card-img mr-2 " alt="..." />
-                        Heaven Real Estate
+                        HeaveN Real Estate
                       </div>
                       <div className="d-flex ">
                         <i
@@ -180,7 +187,7 @@ const CustomerFollowUp = () => {
                             setPhoneNumber(item.phoneNumber);
                             setDescription(item.description);
                             setEmail(item.email);
-                            setDateOfFollowUp(Date(item.dateOfFollowUp));
+                            setDateOfFollowUp(Date(moment(item.dateOfFollowUp).format("dd/mm/yyyy")));
                             setId(item._id);
                           }}
                           data-target="#exampleModaledit"
@@ -201,7 +208,7 @@ const CustomerFollowUp = () => {
                     {item.description}
                   </p>
                   <p className="card-text text-secondary m-0 p-0">
-                    {item.dateOfFollowUp}
+                    {moment(item.dateOfFollowUp).format("DD-MM-YYYY")}
                   </p>
                 </div>
               </div>

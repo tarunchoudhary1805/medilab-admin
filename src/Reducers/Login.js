@@ -14,9 +14,9 @@ function LoginReducer(state = initialState, action) {
         ...state,
       };
     case "LOGIN":
-      localStorage.setItem("token", action.payload);
-      localStorage.setItem("isAuth", true);
-      return { ...state, token: action.payload, isAuth: true };
+      localStorage.setItem("token", action.payload.token);
+      localStorage.setItem("isAuth", action.payload.isAuth);
+      return { ...state, token: action.payload.token, isAuth: action.payload.isAuth };
 
     case "LOGOUT":
       return { ...state, token: "", isAuth: false };

@@ -1,9 +1,8 @@
-const login = (token) => {
-  console.log(token);
-  
+const login =(data) => {
+  // console.log(token);
   return {
     type: "LOGIN",
-    payload: token,
+    payload: !data?._id ? {token:"",isAuth:false} :{token:"abcdefgh",isAuth:true}
   };
 };
 
