@@ -3,6 +3,12 @@ import React, { useState } from "react";
 const CreatePost = (props) => {
   const [image, setImage] = useState("");
   const [description, setDescription] = useState("");
+  const [type, setType] = useState("");
+  const [bathroom, setbathroom] = useState("");
+  const [bedroom, setbedroom] = useState("");
+  const [hall, setHall] = useState("");
+  const [kitchen, setKitchen] = useState("");
+  const [price, setPrice] = useState("");
   const [loading, setLoading] = useState(false);
   const uploadImage = async (e) => {
     const files = e.target.files;
@@ -28,10 +34,26 @@ const CreatePost = (props) => {
   };
 
   const submit = async () => {
-    const data = { description, img: image };
+    const data = {
+      description,
+      img: image,
+      bathroom,
+      bedroom,
+      hall,
+      kitchen,
+      price,
+      type,
+    };
+    console.log(data);
     props.submit(data);
     setDescription("");
     setImage("");
+    setKitchen("");
+    setPrice("");
+    setHall("");
+    setbathroom("");
+    setbedroom("");
+    setType("");
   };
   return (
     <div>
@@ -73,6 +95,79 @@ const CreatePost = (props) => {
             <div className="modal-body">
               <form>
                 <div className="form-group">
+                  <select
+                    onChange={(e) => setType(e.target.value)}
+                    value={type}
+                    name="type"
+                    className="form-control"
+                    placeholder="type of Property"
+                  >
+                    <option>Type of Property</option>
+                    <option value="for_rent">For Rent</option>
+                    <option value="for_sale">For Sale</option>
+                  </select>
+                </div>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    name="bathroom"
+                    className="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                    placeholder="Number of Bathroom"
+                    value={bathroom}
+                    onChange={(e) => setbathroom(e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    name="bedroom"
+                    className="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                    placeholder="Number of BedRooms"
+                    value={bedroom}
+                    onChange={(e) => setbedroom(e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    name="hall"
+                    className="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                    placeholder="Number of halls"
+                    value={hall}
+                    onChange={(e) => setHall(e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    name="kitchen"
+                    className="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                    placeholder="Number of kitchen"
+                    value={kitchen}
+                    onChange={(e) => setKitchen(e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    name="price"
+                    className="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                    placeholder="Price"
+                    value={price}
+                    onChange={(e) => setPrice(e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
                   <textarea
                     type="text"
                     name="fullName"
@@ -84,7 +179,6 @@ const CreatePost = (props) => {
                     onChange={(e) => setDescription(e.target.value)}
                   />
                 </div>
-
                 <div className="form-group">
                   <input
                     type="file"

@@ -123,6 +123,20 @@ const Post = () => {
                     </div>
                   </h5>
                   <p className="card-text">{item.description}</p>
+                  <div className="d-flex">
+                    <p title="Bathroom" className="mx-3">
+                      <i class="fas fa-sink text-success  "></i> 12 Ba
+                    </p>
+                    <p title="BedRoom" className="mx-3">
+                      <i class="fas fa-bed  text-success "></i>12 Br
+                    </p>
+                    <p title="Price" className="mx-3">
+                      <i class="fas fa-money-bill-alt text-success"></i>12000
+                    </p>
+                    <p title="sqFt" className="mx-3">
+                      <i class=" far fa-building text-success"></i>1200 SqFt
+                    </p>
+                  </div>
                 </div>
                 <img src={item.img} className=" img card-img-top" alt="..." />
               </div>
