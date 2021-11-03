@@ -9,6 +9,7 @@ const CreatePost = (props) => {
   const [hall, setHall] = useState("");
   const [kitchen, setKitchen] = useState("");
   const [price, setPrice] = useState("");
+  const [area, setArea] = useState("");
   const [loading, setLoading] = useState(false);
   const uploadImage = async (e) => {
     const files = e.target.files;
@@ -43,6 +44,7 @@ const CreatePost = (props) => {
       kitchen,
       price,
       type,
+      area,
     };
     console.log(data);
     props.submit(data);
@@ -54,6 +56,7 @@ const CreatePost = (props) => {
     setbathroom("");
     setbedroom("");
     setType("");
+    setArea("");
   };
   return (
     <div>
@@ -117,6 +120,18 @@ const CreatePost = (props) => {
                     placeholder="Number of Bathroom"
                     value={bathroom}
                     onChange={(e) => setbathroom(e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    name="area"
+                    className="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                    placeholder="Area in SqFt"
+                    value={area}
+                    onChange={(e) => setArea(e.target.value)}
                   />
                 </div>
                 <div className="form-group">

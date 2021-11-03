@@ -125,16 +125,20 @@ const Post = () => {
                   <p className="card-text">{item.description}</p>
                   <div className="d-flex">
                     <p title="Bathroom" className="mx-3">
-                      <i class="fas fa-sink text-success  "></i> 12 Ba
+                      <i class="fas fa-sink text-success  "></i> {item.bathroom}{" "}
+                      Ba
                     </p>
                     <p title="BedRoom" className="mx-3">
-                      <i class="fas fa-bed  text-success "></i>12 Br
+                      <i class="fas fa-bed  text-success "></i>
+                      {item.bedroom} Br
                     </p>
                     <p title="Price" className="mx-3">
-                      <i class="fas fa-money-bill-alt text-success"></i>12000
+                      <i class="fas fa-money-bill-alt text-success"></i>
+                      {item.price}
                     </p>
                     <p title="sqFt" className="mx-3">
-                      <i class=" far fa-building text-success"></i>1200 SqFt
+                      <i class=" far fa-building text-success"></i>
+                      {item.area} SqFt
                     </p>
                   </div>
                 </div>
