@@ -1,17 +1,17 @@
 import React from "react";
 import { Route } from "react-router";
-import CustomerFollowUp from "../Pages/customerFollowUp/CustomerFollowUp";
+import Blog from "../Pages/Blog/Blog";
+
+import Gallery from "../Pages/Gallery/Gallery";
+
 import Login from "../Pages/Login/Login";
-import Post from "../Pages/Post/Post";
-import Service from "../Pages/Service/Service";
 
 const Routes = () => {
   return (
     <div>
-      <Route exact path="/" component={Post} />
+      <Route exact path="/" component={Blog} />
       <Route path="/login" component={Login} />
-      <Route path="/service" component={Service} />
-      <Route path="/customerFollowUp" component={CustomerFollowUp} />
+      <Route path="/gallery" component={Gallery} />
     </div>
   );
 };

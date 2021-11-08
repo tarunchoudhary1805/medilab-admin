@@ -40,13 +40,10 @@ const Navbar = () => {
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <Link class="dropdown-item" to="/">
-                  Posts
+                  Blogs
                 </Link>
-                <Link class="dropdown-item" to="/service">
-                  Services
-                </Link>
-                <Link class="dropdown-item" to="/customerFollowUp">
-                  Customer Follow Up
+                <Link class="dropdown-item" to="/gallery">
+                  Gallery
                 </Link>
               </div>
             </li>
@@ -55,9 +52,7 @@ const Navbar = () => {
         <div className="d-flex ">
           {!state.isAuth && (
             <Link to="/login">
-              <button className="btn btn-primary btn-dark ">
-                Login
-              </button>
+              <button className="btn btn-primary btn-dark ">Login</button>
             </Link>
           )}
           {state.isAuth && (

@@ -14,7 +14,7 @@ const Login = () => {
     console.log(data);
     token = "abcdefgh";
     const response = await fetch(
-      "https://vardaa.herokuapp.com/login",
+      "",
       {
         method: "POST",
         headers: {
