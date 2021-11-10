@@ -10,14 +10,13 @@ const Add = (props) => {
 
   const [loading, setLoading] = useState(false);
 
- 
-
   const submit = () => {
     const data = {
       img: image,
     };
 
     props.submit(data);
+    setImage("");
   };
   const uploadImage = async (e) => {
     const files = e.target.files;
@@ -62,7 +61,12 @@ const Add = (props) => {
             onChange={uploadImage}
           ></input>
         </div>
-        <button type="button" className="btn btn-success" onClick={submit}>
+        <button
+          type="button"
+          className="btn btn-success"
+          disabled={!image}
+          onClick={submit}
+        >
           Submit
         </button>
       </form>

@@ -99,7 +99,12 @@ const Add = (props) => {
             onChange={uploadImage}
           ></input>
         </div>
-        <button type="button" className="btn btn-success" onClick={submit}>
+        <button
+          type="button"
+          disabled={!image}
+          className="btn btn-success"
+          onClick={submit}
+        >
           Submit
         </button>
       </form>
