@@ -22,73 +22,87 @@ const Blog = () => {
   const [i, setI] = useState();
 
   useEffect(() => {
-    // setLoading(true);
-    // (async () => {
-    //   const response = await fetch(getBloglistApi)
-    //     .then((res) => res.json())
-    //     .catch((err) => toast.error(err));
-    //   if (response?.status === true) {
-    //     setBlogs(response.data);
-    //   }
-    //   setLoading(false);
-    // })();
+    setLoading(true);
+    (async () => {
+      try {
+        const response = await fetch(
+          "https://vardaa.herokuapp.com/getAllBlogs"
+        );
+        const val = await response.json();
+        console.log(val);
+        if (val) {
+          setBlogs(val);
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+
+      setLoading(false);
+    })();
   }, []);
 
   const submit = async (blog) => {
     setLoading(true);
-    // const response1 = await fetch(getBloglistApi, {
-    //   method: "POST",
-    //   body: JSON.stringify(blog),
-    //   headers: {
-    //     "content-type": "application/json",
-    //   },
-    // })
-    //   .then((res) => res.json())
-    //   .catch((err) => console.log(err));
-    // if (response1.success === true) {
-    const data = [...blogs];
-    data.push(blog);
-    // toast("Blog Added Successfully");
-    setBlogs(data);
-    // }
+    const response1 = await fetch("https://vardaa.herokuapp.com/createBlog", {
+      method: "POST",
+      body: JSON.stringify(blog),
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+    const val = await response1.json();
+    if (val) {
+      const data = [...blogs];
+      data.push(blog);
+      // toast("Blog Added Successfully");
+      setBlogs(data);
+    }
     setLoading(false);
     setShow(!show);
   };
 
   const handleDelete = async (i, id) => {
     setLoading(true);
-    // const response2 = await fetch(`${getBloglistApi}/${id}`, {
-    //   method: "DELETE",
-    // })
+    const response2 = await fetch(
+      `https:vardaa.herokuapp.com/deleteBlog/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
+    const val1 = await response2.json();
+
     //   .then((res) => res.json())
     //   .catch((err) => console.log(err));
 
-    // if (response2.success === true) {
-    const d1 = [...blogs];
-    d1.splice(i, 1);
-    // toast("Blog Deleted Successfully");
-    setBlogs(d1);
-    // }
+    if (val1) {
+      const d1 = [...blogs];
+      d1.splice(i, 1);
+      // toast("Blog Deleted Successfully");
+      setBlogs(d1);
+    }
     setLoading(false);
   };
 
   const handleEdit = async (blog, e) => {
     setLoading(true);
-    // const response2 = await fetch(`${getBloglistApi}/${editBlog._id}`, {
-    //   method: "PUT",
-    //   headers: {
-    //     "content-type": "application/json",
-    //   },
-    //   body: JSON.stringify(blog),
-    // })
+    const response2 = await fetch(`https:vardaa.herokuapp.com/updateBlogs`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(blog),
+    });
+    const val2 = await response2.json();
+
     //   .then((res) => res.json())
     //   .catch((err) => console.log(err));
-
-    const value = [...blogs];
-    value[i] = blog;
-    setBlogs(value);
-    setLoading(false);
-    setEdit(false);
+    if (val2) {
+      const value = [...blogs];
+      value[i] = blog;
+      setBlogs(value);
+      setLoading(false);
+      setEdit(false);
+    }
   };
 
   return (
@@ -124,11 +138,15 @@ const Blog = () => {
         {!show && !edit && (
           <ol>
             {blogs?.map((blog, i) => (
-              <div className="d-flex justify-content-between container my-2">
-                <li key={blog._id}>
-                  <h2>{blog.title}</h2>
-                  <p>{ReactHtmlParser(blog.desc)}</p>
-                </li>
+              <div className="d-flex align-items-center justify-content-between">
+                <div className="">
+                  <li key={blog._id}>
+                    <img src={blog.img} width="20%" alt="" />
+                    <h2>{blog.title}</h2>
+                    <p>{ReactHtmlParser(blog.description)}</p>
+                    <hr />
+                  </li>
+                </div>
                 <div className="d-flex">
                   <button
                     className="btn btn-success mx-2"

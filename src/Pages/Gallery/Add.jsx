@@ -9,32 +9,15 @@ const Add = (props) => {
   const [image, setImage] = useState("");
 
   const [loading, setLoading] = useState(false);
-  const [blog, setBlog] = useState({
-    title: "",
 
-    description: "",
-  });
-
-  const handleChange = (e) => {
-    setBlog({ ...blog, [e.target.name]: e.target.value });
-  };
+ 
 
   const submit = () => {
     const data = {
-      title: blog.title,
-      description: blog.description,
       img: image,
     };
-    if (blog.title.length > 0 && blog.description.length > 0) {
-      props.submit(data);
-      setBlog({
-        title: "",
-        image: "",
-        description: "",
-      });
-    } else {
-      // toast.error("All Fields are required");
-    }
+
+    props.submit(data);
   };
   const uploadImage = async (e) => {
     const files = e.target.files;
@@ -69,27 +52,7 @@ const Add = (props) => {
             </div>
           </div>
         )}
-        <div className="form-group">
-          <label>Title</label>
-          <input
-            className="form-control"
-            type="text"
-            onChange={handleChange}
-            name="title"
-            value={blog.title}
-          />
-        </div>
-        <div className="form-group">
-          <CKEditor
-            editor={ClassicEditor}
-            onChange={(event, editor) => {
-              data = editor.getData();
-              setBlog({ ...blog, description: data });
-            }}
-            name="description"
-            value={blog.description}
-          />
-        </div>{" "}
+
         <div className="form-group">
           <input
             type="file"

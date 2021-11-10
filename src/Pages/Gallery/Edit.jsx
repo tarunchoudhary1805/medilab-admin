@@ -19,17 +19,11 @@ const Edit = (props) => {
   };
 
   const submit = () => {
-    const data = {
-      title: blog.title,
-      description: blog.description,
-      img: image,
-      id: props.Blog._id,
-    };
     if (blog.title.length > 0 && blog.description.length > 0) {
-      props.handleEdit(data);
+      props.handleEdit(blog);
       setBlog({
         title: "",
-
+        short_desc: "",
         description: "",
       });
     } else {
