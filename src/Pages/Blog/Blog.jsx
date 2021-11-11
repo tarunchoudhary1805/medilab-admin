@@ -9,11 +9,13 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import ReactHtmlParser from "react-html-parser";
 // import { toast } from "react-toastify";
 import "./style.css";
-
+import { useSelector, useDispatch } from "react-redux";
+import { Redirect } from "react-router";
 let data;
 // import { getBloglistApi } from "../../apiList";
 
 const Blog = () => {
+  const state = useSelector((state) => state.LoginReducer);
   const editor = { ClassicEditor };
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -105,94 +107,96 @@ const Blog = () => {
       setEdit(false);
     }
   };
+  if (!state.isAuth) {
+    return <Redirect to="/login" />;
+  } else {
+    return (
+      <div className="container border p-2">
+        {/* <ToastContainer /> */}
+        <h4 className="text-center">Blogs</h4>
+        <div className="d-flex justify-content-end">
+          {!edit && (
+            <button className="btn btn-primary" onClick={() => setShow(!show)}>
+              {show ? "X" : "Add Blog"}
+            </button>
+          )}
+        </div>
 
-  return (
-    <div className="container border p-2">
-      {/* <ToastContainer /> */}
-      <h4 className="text-center">Blogs</h4>
-      <div className="d-flex justify-content-end">
-        {!edit && (
-          <button className="btn btn-primary" onClick={() => setShow(!show)}>
-            {show ? "X" : "Add Blog"}
-          </button>
+        {show && <Add submit={(blog) => submit(blog)} />}
+        <br />
+        <br />
+        {edit && (
+          <Edit
+            Blog={editBlog}
+            cancel={() => setEdit(!edit)}
+            handleEdit={(blog) => handleEdit(blog)}
+          />
         )}
-      </div>
-
-      {show && <Add submit={(blog) => submit(blog)} />}
-      <br />
-      <br />
-      {edit && (
-        <Edit
-          Blog={editBlog}
-          cancel={() => setEdit(!edit)}
-          handleEdit={(blog) => handleEdit(blog)}
-        />
-      )}
-      <div className="text-center">
-        {loading && (
-          <div class="spinner-border text-center" role="status">
-            <span class="sr-only">Loading...</span>
-          </div>
-        )}
-      </div>
-      <div>
-        {!show && !edit && (
-          <ol>
-            <div class="row">
-              {blogs?.map((blog, i) => (
-                <>
-                  {" "}
-                  <div className="container1 col-lg-4 col-md-6">
-                    <div className="card1 ">
-                      <div className="card__header1">
-                        <img
-                          src={blog.img}
-                          alt="card__image"
-                          className="card__image1 img1"
-                          width={600}
-                        />
-                      </div>
-                      <div className="card__body1">
-                        <h4>
-                          <b>{blog.title.slice(0, 30)}</b>
-                        </h4>
-                        <p className="text-secondary">
-                          {blog.short_description?.length > 40
-                            ? `${blog.short_description.slice(0, 40)} . . . `
-                            : blog.short_description}
-                        </p>
-                      </div>
-                      <div className="d-flex my-2 mx-2  justify-content-start">
-                    <div className="d-flex">
-                      <button
-                        className="btn btn-success mx-2"
-                        onClick={() => {
-                          setEditBlog(blog);
-                          setEdit(true);
-                          setI(i);
-                        }}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        className="btn btn-danger mx-2"
-                        onClick={() => handleDelete(i, blog._id)}
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                    </div>
-                  </div>
-                  
-                </>
-              ))}
+        <div className="text-center">
+          {loading && (
+            <div class="spinner-border text-center" role="status">
+              <span class="sr-only">Loading...</span>
             </div>
-          </ol>
-        )}
+          )}
+        </div>
+        <div>
+          {!show && !edit && (
+            <ol>
+              <div class="row">
+                {blogs?.map((blog, i) => (
+                  <>
+                    {" "}
+                    <div className="container1 col-lg-4 col-md-6">
+                      <div className="card1 ">
+                        <div className="card__header1">
+                          <img
+                            src={blog.img}
+                            alt="card__image"
+                            className="card__image1 img1"
+                            width={600}
+                          />
+                        </div>
+                        <div className="card__body1">
+                          <h4>
+                            <b>{blog.title.slice(0, 30)}</b>
+                          </h4>
+                          <p className="text-secondary">
+                            {blog.short_description?.length > 40
+                              ? `${blog.short_description.slice(0, 40)} . . . `
+                              : blog.short_description}
+                          </p>
+                        </div>
+                        <div className="d-flex my-2 mx-2  justify-content-start">
+                          <div className="d-flex">
+                            <button
+                              className="btn btn-success mx-2"
+                              onClick={() => {
+                                setEditBlog(blog);
+                                setEdit(true);
+                                setI(i);
+                              }}
+                            >
+                              Edit
+                            </button>
+                            <button
+                              className="btn btn-danger mx-2"
+                              onClick={() => handleDelete(i, blog._id)}
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                ))}
+              </div>
+            </ol>
+          )}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default Blog;

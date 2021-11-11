@@ -8,11 +8,13 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import ReactHtmlParser from "react-html-parser";
 // import { toast } from "react-toastify";
-
+import { useSelector, useDispatch } from "react-redux";
+import { Redirect } from "react-router";
 let data;
 // import { getBloglistApi } from "../../apiList";
 
 const Blog = () => {
+  const state = useSelector((state) => state.LoginReducer);
   const editor = { ClassicEditor };
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -110,79 +112,82 @@ const Blog = () => {
       setEdit(false);
     }
   };
+  if (!state.isAuth) {
+    return <Redirect to="/login" />;
+  } else {
+    return (
+      <div className="container border p-2">
+        {/* <ToastContainer /> */}
+        <h4 className="text-center">Gallery</h4>
+        <div className="d-flex justify-content-end">
+          {!edit && (
+            <button className="btn btn-primary" onClick={() => setShow(!show)}>
+              {show ? "X" : "Add Images"}
+            </button>
+          )}
+        </div>
 
-  return (
-    <div className="container border p-2">
-      {/* <ToastContainer /> */}
-      <h4 className="text-center">Gallery</h4>
-      <div className="d-flex justify-content-end">
-        {!edit && (
-          <button className="btn btn-primary" onClick={() => setShow(!show)}>
-            {show ? "X" : "Add Images"}
-          </button>
+        {show && <Add submit={(image) => submit(image)} />}
+        <br />
+        <br />
+        {edit && (
+          <Edit
+            Blog={editBlog}
+            cancel={() => setEdit(!edit)}
+            handleEdit={(image) => handleEdit(image)}
+          />
         )}
-      </div>
-
-      {show && <Add submit={(image) => submit(image)} />}
-      <br />
-      <br />
-      {edit && (
-        <Edit
-          Blog={editBlog}
-          cancel={() => setEdit(!edit)}
-          handleEdit={(image) => handleEdit(image)}
-        />
-      )}
-      <div className="text-center">
-        {loading && (
-          <div class="spinner-border text-center" role="status">
-            <span class="sr-only">Loading...</span>
-          </div>
-        )}
-      </div>
-      <div>
-        {!show && !edit && (
-          <ol>
-            <div className="row">
-              {images?.map((image, i) => (
-                <div className="container1 col-lg-4 col-md-6">
-                  <div className="card1 ">
-                    <div className="card__header1">
-                      <img
-                        src={image.img}
-                        alt="card__image"
-                        className="card__image1 img1"
-                        width={600}
-                        height={200}
-                      />
-                    </div>
-                    <div className="d-flex justify-content-center mx-2 my-2">
-                      <button
-                        className="btn btn-success mx-2"
-                        onClick={() => {
-                          setEditBlog(image);
-                          setEdit(true);
-                          setI(i);
-                        }}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        className="btn btn-danger mx-2"
-                        onClick={() => handleDelete(i, image._id)}
-                      >
-                        Delete
-                      </button>
+        <div className="text-center">
+          {loading && (
+            <div class="spinner-border text-center" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          )}
+        </div>
+        <div>
+          {!show && !edit && (
+            <ol>
+              <div className="row">
+                {images?.map((image, i) => (
+                  <div className="container1 col-lg-4 col-md-6">
+                    <div className="card1 ">
+                      <div className="card__header1">
+                        <img
+                          src={image.img}
+                          alt="card__image"
+                          className="card__image1 img1"
+                          width={600}
+                          height={200}
+                        />
+                      </div>
+                      <div className="d-flex justify-content-center mx-2 my-2">
+                        <button
+                          className="btn btn-success mx-2"
+                          onClick={() => {
+                            setEditBlog(image);
+                            setEdit(true);
+                            setI(i);
+                          }}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="btn btn-danger mx-2"
+                          onClick={() => handleDelete(i, image._id)}
+                        >
+                          Delete
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          </ol>
-        )}
+                ))}
+              </div>
+            </ol>
+          )}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default Blog;
