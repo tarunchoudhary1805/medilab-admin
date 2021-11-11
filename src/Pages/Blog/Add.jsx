@@ -11,7 +11,7 @@ const Add = (props) => {
   const [loading, setLoading] = useState(false);
   const [blog, setBlog] = useState({
     title: "",
-
+    short_description: "",
     description: "",
   });
 
@@ -24,12 +24,14 @@ const Add = (props) => {
       title: blog.title,
       description: blog.description,
       img: image,
+      short_description: blog.short_description,
     };
     if (blog.title.length > 0 && blog.description.length > 0) {
       props.submit(data);
       setBlog({
         title: "",
         image: "",
+        short_description: "",
         description: "",
       });
     } else {
@@ -77,6 +79,16 @@ const Add = (props) => {
             onChange={handleChange}
             name="title"
             value={blog.title}
+          />
+        </div>{" "}
+        <div className="form-group">
+          <label>Short Description</label>
+          <input
+            className="form-control"
+            type="text"
+            onChange={handleChange}
+            name="short_description"
+            value={blog.short_description}
           />
         </div>
         <div className="form-group">

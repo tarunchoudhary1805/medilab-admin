@@ -143,6 +143,7 @@ const Blog = () => {
                   <li key={blog._id}>
                     <img src={blog.img} width="20%" alt="" />
                     <h2>{blog.title}</h2>
+                    <p>{blog.short_description}</p>
                     <p>{ReactHtmlParser(blog.description)}</p>
                     <hr />
                   </li>

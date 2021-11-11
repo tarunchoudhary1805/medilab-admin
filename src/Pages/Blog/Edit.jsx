@@ -10,7 +10,7 @@ const Edit = (props) => {
   const [loading, setLoading] = useState(false);
   const [blog, setBlog] = useState({
     title: props.Blog.title,
-
+    short_description: props.Blog.short_description,
     description: props.Blog.description,
   });
 
@@ -22,6 +22,7 @@ const Edit = (props) => {
     const data = {
       title: blog.title,
       description: blog.description,
+      short_description: blog.short_description,
       img: image,
       id: props.Blog._id,
     };
@@ -29,7 +30,7 @@ const Edit = (props) => {
       props.handleEdit(data);
       setBlog({
         title: "",
-
+        short_description: "",
         description: "",
       });
     } else {
@@ -72,7 +73,16 @@ const Edit = (props) => {
             value={blog.title}
           />
         </div>
-
+        <div className="form-group">
+          <label>Short Description</label>
+          <input
+            className="form-control"
+            type="text"
+            onChange={handleChange}
+            name="short_description"
+            value={blog.short_description}
+          />
+        </div>
         <div className="form-group">
           <CKEditor
             editor={ClassicEditor}
