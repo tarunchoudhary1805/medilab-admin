@@ -9,33 +9,29 @@ const Login = () => {
   const dispatch = useDispatch();
   const [data, setData] = useState({ email: "", password: "" });
   let token = localStorage.getItem("token");
-  const submit = async(e) => {
+  const submit = async (e) => {
     e.preventDefault();
     console.log(data);
     token = "abcdefgh";
-    const response = await fetch(
-      "",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userName:data.email,
-          password:data.password
-        }),
-      }
-      
-    )
-    .then((res)=>{
-      return res.json();
+    const response = await fetch("https://vardaa.herokuapp.com/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userName: data.email,
+        password: data.password,
+      }),
     })
-    .then((data)=>{
-      return data;
-    })
-    .catch((err)=>{
-      return err;
-    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        return data;
+      })
+      .catch((err) => {
+        return err;
+      });
     console.log(response);
     dispatch(allActions.loginActions.login(response));
   };

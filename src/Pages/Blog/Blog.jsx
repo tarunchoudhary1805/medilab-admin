@@ -8,6 +8,7 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import ReactHtmlParser from "react-html-parser";
 // import { toast } from "react-toastify";
+import "./style.css";
 
 let data;
 // import { getBloglistApi } from "../../apiList";
@@ -137,37 +138,56 @@ const Blog = () => {
       <div>
         {!show && !edit && (
           <ol>
-            {blogs?.map((blog, i) => (
-              <div className="d-flex align-items-center justify-content-between">
-                <div className="">
-                  <li key={blog._id}>
-                    <img src={blog.img} width="20%" alt="" />
-                    <h2>{blog.title}</h2>
-                    <p>{blog.short_description}</p>
-                    <p>{ReactHtmlParser(blog.description)}</p>
-                    <hr />
-                  </li>
-                </div>
-                <div className="d-flex">
-                  <button
-                    className="btn btn-success mx-2"
-                    onClick={() => {
-                      setEditBlog(blog);
-                      setEdit(true);
-                      setI(i);
-                    }}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="btn btn-danger mx-2"
-                    onClick={() => handleDelete(i, blog._id)}
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            ))}
+            <div class="row">
+              {blogs?.map((blog, i) => (
+                <>
+                  {" "}
+                  <div className="container1 col-lg-4 col-md-6">
+                    <div className="card1 ">
+                      <div className="card__header1">
+                        <img
+                          src={blog.img}
+                          alt="card__image"
+                          className="card__image1 img1"
+                          width={600}
+                        />
+                      </div>
+                      <div className="card__body1">
+                        <h4>
+                          <b>{blog.title.slice(0, 30)}</b>
+                        </h4>
+                        <p className="text-secondary">
+                          {blog.short_description?.length > 40
+                            ? `${blog.short_description.slice(0, 40)} . . . `
+                            : blog.short_description}
+                        </p>
+                      </div>
+                      <div className="d-flex my-2 mx-2  justify-content-start">
+                    <div className="d-flex">
+                      <button
+                        className="btn btn-success mx-2"
+                        onClick={() => {
+                          setEditBlog(blog);
+                          setEdit(true);
+                          setI(i);
+                        }}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="btn btn-danger mx-2"
+                        onClick={() => handleDelete(i, blog._id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                    </div>
+                  </div>
+                  
+                </>
+              ))}
+            </div>
           </ol>
         )}
       </div>

@@ -7,7 +7,7 @@ const Navbar = () => {
   const state = useSelector((state) => state.LoginReducer);
   const dispatch = useDispatch();
   return (
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg pt-5 navbar-dark bg-dark">
       <Link class="navbar-brand" to="/">
         Admin Panel
       </Link>

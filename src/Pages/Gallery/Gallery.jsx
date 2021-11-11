@@ -143,36 +143,41 @@ const Blog = () => {
       <div>
         {!show && !edit && (
           <ol>
-            {images?.map((image, i) => (
-              <div className="d-flex align-items-center justify-content-between">
-                <div className="w-100">
-                  <img
-                    src={image.img}
-                    style={{ height: "50vh" }}
-                    className="img-fluid responsive"
-                    alt=""
-                  />
+            <div className="row">
+              {images?.map((image, i) => (
+                <div className="container1 col-lg-4 col-md-6">
+                  <div className="card1 ">
+                    <div className="card__header1">
+                      <img
+                        src={image.img}
+                        alt="card__image"
+                        className="card__image1 img1"
+                        width={600}
+                        height={200}
+                      />
+                    </div>
+                    <div className="d-flex justify-content-center mx-2 my-2">
+                      <button
+                        className="btn btn-success mx-2"
+                        onClick={() => {
+                          setEditBlog(image);
+                          setEdit(true);
+                          setI(i);
+                        }}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="btn btn-danger mx-2"
+                        onClick={() => handleDelete(i, image._id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                <div className="d-flex">
-                  <button
-                    className="btn btn-success mx-2"
-                    onClick={() => {
-                      setEditBlog(image);
-                      setEdit(true);
-                      setI(i);
-                    }}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="btn btn-danger mx-2"
-                    onClick={() => handleDelete(i, image._id)}
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </ol>
         )}
       </div>
